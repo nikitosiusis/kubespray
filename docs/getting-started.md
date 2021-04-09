@@ -76,17 +76,16 @@ var in inventory.
 
 ## Connecting to Kubernetes
 
-By default, Kubespray configures kube_control_plane hosts with insecure access to
-kube-apiserver via port 8080. A kubeconfig file is not necessary in this case,
-because kubectl will use <http://localhost:8080> to connect. The kubeconfig files
-generated will point to localhost (on kube_control_planes) and kube-node hosts will
-connect either to a localhost nginx proxy or to a loadbalancer if configured.
-More details on this process are in the [HA guide](/docs/ha-mode.md).
-
-Kubespray permits connecting to the cluster remotely on any IP of any
+By default, Kubespray permits connecting to the cluster remotely on any IP of any
 kube_control_plane host on port 6443 by default. However, this requires
 authentication. One can get a kubeconfig from kube_control_plane hosts
 (see [below](#accessing-kubernetes-api)) or connect with a [username and password](/docs/vars.md#user-accounts).
+
+You can override this by uncommenting kube_apiserver_insecure_port:8080 in group_vars/k8s-cluster/k8s-cluster.yml
+A kubeconfig file is not necessary in this case, because kubectl will use http://localhost:8080 to connect
+The kubeconfig files generated will point to localhost (on kube_control_planes) and kube-node hosts will
+connect either to a localhost nginx proxy or to a loadbalancer if configured.
+More details on this process are in the [HA guide](/docs/ha-mode.md).
 
 For more information on kubeconfig and accessing a Kubernetes cluster, refer to
 the Kubernetes [documentation](https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
